@@ -15,6 +15,7 @@
 		7EF6450F2B2E350700F241FE /* FilterColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF6450E2B2E350700F241FE /* FilterColor.swift */; };
 		7EF645122B2E35B600F241FE /* FilterColorButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF645112B2E35B600F241FE /* FilterColorButton+Ext.swift */; };
 		7EF645142B2E38AB00F241FE /* ImageTransform+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF645132B2E38AB00F241FE /* ImageTransform+Ext.swift */; };
+		7EF645172B2E390400F241FE /* MetalRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF645162B2E390400F241FE /* MetalRenderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		7EF6450E2B2E350700F241FE /* FilterColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterColor.swift; sourceTree = "<group>"; };
 		7EF645112B2E35B600F241FE /* FilterColorButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterColorButton+Ext.swift"; sourceTree = "<group>"; };
 		7EF645132B2E38AB00F241FE /* ImageTransform+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageTransform+Ext.swift"; sourceTree = "<group>"; };
+		7EF645162B2E390400F241FE /* MetalRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		7EF645092B2E33F700F241FE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7EF645152B2E38EA00F241FE /* components */,
 				7EF6450A2B2E344700F241FE /* CameraViewController.swift */,
 			);
 			path = View;
@@ -127,6 +130,14 @@
 				7EF645132B2E38AB00F241FE /* ImageTransform+Ext.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		7EF645152B2E38EA00F241FE /* components */ = {
+			isa = PBXGroup;
+			children = (
+				7EF645162B2E390400F241FE /* MetalRenderView.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +213,7 @@
 				7EF645122B2E35B600F241FE /* FilterColorButton+Ext.swift in Sources */,
 				7EF6450F2B2E350700F241FE /* FilterColor.swift in Sources */,
 				7EF6450B2B2E344700F241FE /* CameraViewController.swift in Sources */,
+				7EF645172B2E390400F241FE /* MetalRenderView.swift in Sources */,
 				7E3F0D482B2DCD5A00356F07 /* AppDelegate.swift in Sources */,
 				7EF645142B2E38AB00F241FE /* ImageTransform+Ext.swift in Sources */,
 				7E3F0D4A2B2DCD5A00356F07 /* SceneDelegate.swift in Sources */,
