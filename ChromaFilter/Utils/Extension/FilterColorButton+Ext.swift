@@ -5,4 +5,8 @@
 //  Created by Rivaldo Fernandes on 17/12/23.
 //
 
-import Foundation
+import UIKit
+
+class FilterColorButton: UIButton {
+    var filterColor: FilterColor = .normal
+}
