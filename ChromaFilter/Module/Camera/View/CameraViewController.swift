@@ -7,8 +7,14 @@
 
 import UIKit
 
-class CameraViewController: UIViewController {
 
+protocol CameraViewProtocol {
+    var presenter: CameraPresenterProtocol? { get set }
+}
+
+class CameraViewController: UIViewController, CameraViewProtocol {
+    var presenter: CameraPresenterProtocol?
+    
     
     private let redButton: FilterColorButton = {
         let button = FilterColorButton()

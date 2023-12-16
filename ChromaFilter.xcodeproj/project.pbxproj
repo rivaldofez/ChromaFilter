@@ -16,6 +16,8 @@
 		7EF645122B2E35B600F241FE /* FilterColorButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF645112B2E35B600F241FE /* FilterColorButton+Ext.swift */; };
 		7EF645142B2E38AB00F241FE /* ImageTransform+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF645132B2E38AB00F241FE /* ImageTransform+Ext.swift */; };
 		7EF645172B2E390400F241FE /* MetalRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF645162B2E390400F241FE /* MetalRenderView.swift */; };
+		7EF6451C2B2E3A7900F241FE /* CameraRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF6451B2B2E3A7900F241FE /* CameraRouter.swift */; };
+		7EF6451F2B2E3A9000F241FE /* CameraPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF6451E2B2E3A9000F241FE /* CameraPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		7EF645112B2E35B600F241FE /* FilterColorButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterColorButton+Ext.swift"; sourceTree = "<group>"; };
 		7EF645132B2E38AB00F241FE /* ImageTransform+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageTransform+Ext.swift"; sourceTree = "<group>"; };
 		7EF645162B2E390400F241FE /* MetalRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderView.swift; sourceTree = "<group>"; };
+		7EF6451B2B2E3A7900F241FE /* CameraRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRouter.swift; sourceTree = "<group>"; };
+		7EF6451E2B2E3A9000F241FE /* CameraPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,8 @@
 		7EF645082B2E33EF00F241FE /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				7EF6451D2B2E3A8300F241FE /* Presenter */,
+				7EF6451A2B2E3A6A00F241FE /* Router */,
 				7EF645092B2E33F700F241FE /* View */,
 			);
 			path = Camera;
@@ -138,6 +144,22 @@
 				7EF645162B2E390400F241FE /* MetalRenderView.swift */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		7EF6451A2B2E3A6A00F241FE /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7EF6451B2B2E3A7900F241FE /* CameraRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		7EF6451D2B2E3A8300F241FE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7EF6451E2B2E3A9000F241FE /* CameraPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,10 +235,12 @@
 				7EF645122B2E35B600F241FE /* FilterColorButton+Ext.swift in Sources */,
 				7EF6450F2B2E350700F241FE /* FilterColor.swift in Sources */,
 				7EF6450B2B2E344700F241FE /* CameraViewController.swift in Sources */,
+				7EF6451F2B2E3A9000F241FE /* CameraPresenter.swift in Sources */,
 				7EF645172B2E390400F241FE /* MetalRenderView.swift in Sources */,
 				7E3F0D482B2DCD5A00356F07 /* AppDelegate.swift in Sources */,
 				7EF645142B2E38AB00F241FE /* ImageTransform+Ext.swift in Sources */,
 				7E3F0D4A2B2DCD5A00356F07 /* SceneDelegate.swift in Sources */,
+				7EF6451C2B2E3A7900F241FE /* CameraRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
