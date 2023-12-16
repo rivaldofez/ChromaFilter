@@ -15,7 +15,6 @@ protocol CameraViewProtocol {
 class CameraViewController: UIViewController, CameraViewProtocol {
     var presenter: CameraPresenterProtocol?
     
-    
     private let redButton: FilterColorButton = {
         let button = FilterColorButton()
         button.filterColor = .red

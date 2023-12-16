@@ -7,7 +7,7 @@
 
 import UIKit
 
-typealias BeginEntry = CameraRouterProtocol & UIViewController
+typealias BeginEntry = CameraViewProtocol & UIViewController
 
 protocol CameraRouterProtocol {
     var begin: BeginEntry? { get set }
@@ -25,11 +25,16 @@ class CameraRouter: CameraRouterProtocol {
         var presenter: CameraPresenterProtocol = CameraPresenter()
         
         view.presenter = presenter
-        presenter.router = router
         presenter.view = view
+        presenter.router = router
         
         router.begin = view as? BeginEntry
         
         return router
     }
+    
+    
 }
+
+
+

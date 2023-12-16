@@ -10,7 +10,6 @@ import Foundation
 protocol CameraPresenterProtocol {
     var view: CameraViewProtocol? { get set }
     var router: CameraRouterProtocol? { get set }
-    
 }
 
 class CameraPresenter: CameraPresenterProtocol {
