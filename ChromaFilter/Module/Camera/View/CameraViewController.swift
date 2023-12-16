@@ -50,21 +50,61 @@ class CameraViewController: UIViewController {
         return button
     }()
     
+    private var filterColorStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 16
+        return stackView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
+        
+        configureConstraints()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func configureConstraints() {
+        view.addSubview(captureButton)
+        view.addSubview(filterColorStackView)
+        filterColorStackView.addArrangedSubview(redButton)
+        filterColorStackView.addArrangedSubview(greenButton)
+        filterColorStackView.addArrangedSubview(blueButton)
+        
+        let captureButtonConstraints = [
+            captureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            captureButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            captureButton.heightAnchor.constraint(equalToConstant: 50),
+            captureButton.widthAnchor.constraint(equalToConstant: 50)
+        ]
+        
+        let filterColorStackViewConstraints = [
+            filterColorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            filterColorStackView.bottomAnchor.constraint(equalTo: captureButton.topAnchor, constant: -16)
+        ]
+        
+        let redButtonConstraints = [
+            redButton.heightAnchor.constraint(equalToConstant: 50),
+            redButton.widthAnchor.constraint(equalToConstant: 50)
+        ]
+        
+        let greenButtonConstraints = [
+            greenButton.heightAnchor.constraint(equalToConstant: 50),
+            greenButton.widthAnchor.constraint(equalToConstant: 50)
+        ]
+        
+        let blueButtonConstraints = [
+            blueButton.heightAnchor.constraint(equalToConstant: 50),
+            blueButton.widthAnchor.constraint(equalToConstant: 50)
+        ]
+        
+        NSLayoutConstraint.activate(captureButtonConstraints)
+        NSLayoutConstraint.activate(filterColorStackViewConstraints)
+        NSLayoutConstraint.activate(redButtonConstraints)
+        NSLayoutConstraint.activate(greenButtonConstraints)
+        NSLayoutConstraint.activate(blueButtonConstraints)
     }
-    */
-
 }
