@@ -120,6 +120,27 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
     }
     
+    private func changeActiveButton(selection: FilterColor) {
+        switch(selection) {
+            case .red:
+                redButton.layer.borderWidth = 3
+                greenButton.layer.borderWidth = 0
+                blueButton.layer.borderWidth = 0
+            case .green:
+                redButton.layer.borderWidth = 0
+                greenButton.layer.borderWidth = 3
+                blueButton.layer.borderWidth = 0
+            case .blue:
+                redButton.layer.borderWidth = 0
+                greenButton.layer.borderWidth = 0
+                blueButton.layer.borderWidth = 3
+            case .normal:
+                redButton.layer.borderWidth = 0
+                greenButton.layer.borderWidth = 0
+                blueButton.layer.borderWidth = 0
+        }
+    }
+    
     @objc private func filterButtonAction(_ button: FilterColorButton) {
         
     }
