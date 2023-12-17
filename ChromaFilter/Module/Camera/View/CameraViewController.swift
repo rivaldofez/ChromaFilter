@@ -55,7 +55,7 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 25
         button.layer.backgroundColor = UIColor.white.cgColor
-        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderColor = UIColor.black.cgColor
         
         return button
     }()
