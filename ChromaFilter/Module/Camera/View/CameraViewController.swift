@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 
 protocol CameraViewProtocol {
@@ -14,6 +16,8 @@ protocol CameraViewProtocol {
 
 class CameraViewController: UIViewController, CameraViewProtocol {
     var presenter: CameraPresenterProtocol?
+    private var selectedFilterColor: FilterColor = .normal
+    private var filterImageMonochrome = CIFilter.colorMonochrome()
     
     private let redButton: FilterColorButton = {
         let button = FilterColorButton()
@@ -138,6 +142,19 @@ class CameraViewController: UIViewController, CameraViewProtocol {
                 redButton.layer.borderWidth = 0
                 greenButton.layer.borderWidth = 0
                 blueButton.layer.borderWidth = 0
+        }
+    }
+    
+    private func changeFilterColor(selected: FilterColor) {
+        switch selected {
+        case .red:
+            self.filterImageMonochrome.color = CIColor(red: 1, green: 0.5, blue: 0.5, alpha: 1)
+        case .green:
+            self.filterImageMonochrome.color = CIColor(red: 0.5, green: 1, blue: 0.5, alpha: 1)
+        case .blue:
+            self.filterImageMonochrome.color = CIColor(red: 0.5, green: 0.5, blue: 1, alpha: 1)
+        case .normal:
+            self.filterImageMonochrome.color = CIColor(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
     
