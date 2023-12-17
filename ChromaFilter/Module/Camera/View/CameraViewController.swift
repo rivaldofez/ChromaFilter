@@ -8,6 +8,7 @@
 import UIKit
 import CoreImage
 import CoreImage.CIFilterBuiltins
+import Combine
 
 
 protocol CameraViewProtocol {
@@ -16,9 +17,8 @@ protocol CameraViewProtocol {
 
 class CameraViewController: UIViewController, CameraViewProtocol {
     var presenter: CameraPresenterProtocol?
-    var cameraCapture: CICameraCapture?
-    private var selectedFilterColor: FilterColor = .normal
-    private var filterImageMonochrome = CIFilter.colorMonochrome()
+    private var cancelable = Set<AnyCancellable>()
+   
     
     private let redButton: FilterColorButton = {
         let button = FilterColorButton()
@@ -81,21 +81,18 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         
         configureConstraints()
         setFilterButtonAction()
-        
-        cameraCapture = CICameraCapture(cameraPosition: .back, callback: { image in
-            guard let image = image else { return }
-
-            self.filterImageMonochrome.inputImage = image
-            
-            if(self.selectedFilterColor == .normal) {
-                self.imagePreview.setImage(image.cropped(to: image.extent))
-            } else {
-                self.imagePreview.setImage(self.filterImageMonochrome.outputImage?.cropped(to: image.extent))
-            }
-        })
-        
-        cameraCapture?.start()
-        
+        bindData()
+        presenter?.cameraCaptureWithFilter()
+    }
+    
+    private func bindData() {
+        presenter?.resultCIImagePublisher
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] resultImage in
+                guard let image = resultImage else { return }
+                self?.imagePreview.setImage(image.cropped(to: image.extent))
+            })
+            .store(in: &cancelable)
     }
     
     private func configureConstraints() {
@@ -168,28 +165,14 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         }
     }
     
-    private func changeFilterColor(selected: FilterColor) {
-        switch selected {
-        case .red:
-            self.filterImageMonochrome.color = CIColor(red: 1, green: 0.5, blue: 0.5, alpha: 1)
-        case .green:
-            self.filterImageMonochrome.color = CIColor(red: 0.5, green: 1, blue: 0.5, alpha: 1)
-        case .blue:
-            self.filterImageMonochrome.color = CIColor(red: 0.5, green: 0.5, blue: 1, alpha: 1)
-        case .normal:
-            self.filterImageMonochrome.color = CIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        }
-    }
-    
     @objc private func filterButtonAction(_ button: FilterColorButton) {
-        if(selectedFilterColor == button.filterColor) {
+        if(presenter?.selectedFilterColor == button.filterColor) {
             changeActiveButton(selected: .normal)
-            changeFilterColor(selected: .normal)
-            selectedFilterColor = .normal
+            presenter?.changeFilterColor(selected: .normal)
+            
         } else {
             changeActiveButton(selected: button.filterColor)
-            changeFilterColor(selected: button.filterColor)
-            selectedFilterColor = button.filterColor
+            presenter?.changeFilterColor(selected: button.filterColor)
         }
     }
     
