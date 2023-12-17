@@ -112,4 +112,20 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         NSLayoutConstraint.activate(greenButtonConstraints)
         NSLayoutConstraint.activate(blueButtonConstraints)
     }
+    
+    private func setFilterButtonAction() {
+        redButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
+        greenButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
+        blueButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
+        captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
+    }
+    
+    @objc private func filterButtonAction(_ button: FilterColorButton) {
+        
+    }
+    
+    @objc private func captureImage() {
+        
+    }
+    
 }
