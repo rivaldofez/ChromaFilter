@@ -51,8 +51,6 @@ class CameraPresenter: CameraPresenterProtocol {
     func cameraCaptureWithFilter() {
         cameraCapture = CICameraCapture(cameraPosition: .back, callback: { image in
             guard let image = image else { return }
-            
-            print("called image capture")
 
             self.filterImageMonochrome.inputImage = image
 
