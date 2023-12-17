@@ -6,9 +6,19 @@
 //
 
 import UIKit
+import CoreImage
+import CoreImage.CIFilterBuiltins
+import Combine
 
-class CameraViewController: UIViewController {
 
+protocol CameraViewProtocol {
+    var presenter: CameraPresenterProtocol? { get set }
+}
+
+class CameraViewController: UIViewController, CameraViewProtocol {
+    var presenter: CameraPresenterProtocol?
+    private var cancelable = Set<AnyCancellable>()
+   
     
     private let redButton: FilterColorButton = {
         let button = FilterColorButton()
@@ -59,15 +69,34 @@ class CameraViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var imagePreview: MetalRenderView = {
+        var metalview = MetalRenderView(frame: view.bounds, device: MTLCreateSystemDefaultDevice())
+        return metalview
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
         
         configureConstraints()
+        setFilterButtonAction()
+        bindData()
+        presenter?.cameraCaptureWithFilter()
+    }
+    
+    private func bindData() {
+        presenter?.resultCIImagePublisher
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] resultImage in
+                guard let image = resultImage else { return }
+                self?.imagePreview.setImage(image.cropped(to: image.extent))
+            })
+            .store(in: &cancelable)
     }
     
     private func configureConstraints() {
+        view.addSubview(imagePreview)
         view.addSubview(captureButton)
         view.addSubview(filterColorStackView)
         filterColorStackView.addArrangedSubview(redButton)
@@ -107,4 +136,48 @@ class CameraViewController: UIViewController {
         NSLayoutConstraint.activate(greenButtonConstraints)
         NSLayoutConstraint.activate(blueButtonConstraints)
     }
+    
+    private func setFilterButtonAction() {
+        redButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
+        greenButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
+        blueButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
+        captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
+    }
+    
+    private func changeActiveButton(selected: FilterColor) {
+        switch(selected) {
+            case .red:
+                redButton.layer.borderWidth = 3
+                greenButton.layer.borderWidth = 0
+                blueButton.layer.borderWidth = 0
+            case .green:
+                redButton.layer.borderWidth = 0
+                greenButton.layer.borderWidth = 3
+                blueButton.layer.borderWidth = 0
+            case .blue:
+                redButton.layer.borderWidth = 0
+                greenButton.layer.borderWidth = 0
+                blueButton.layer.borderWidth = 3
+            case .normal:
+                redButton.layer.borderWidth = 0
+                greenButton.layer.borderWidth = 0
+                blueButton.layer.borderWidth = 0
+        }
+    }
+    
+    @objc private func filterButtonAction(_ button: FilterColorButton) {
+        if(presenter?.selectedFilterColor == button.filterColor) {
+            changeActiveButton(selected: .normal)
+            presenter?.changeFilterColor(selected: .normal)
+            
+        } else {
+            changeActiveButton(selected: button.filterColor)
+            presenter?.changeFilterColor(selected: button.filterColor)
+        }
+    }
+    
+    @objc private func captureImage() {
+        
+    }
+    
 }
