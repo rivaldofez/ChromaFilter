@@ -16,6 +16,7 @@ protocol CameraViewProtocol {
 
 class CameraViewController: UIViewController, CameraViewProtocol {
     var presenter: CameraPresenterProtocol?
+    var cameraCapture: CICameraCapture?
     private var selectedFilterColor: FilterColor = .normal
     private var filterImageMonochrome = CIFilter.colorMonochrome()
     
@@ -80,6 +81,20 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         
         configureConstraints()
         setFilterButtonAction()
+        
+        cameraCapture = CICameraCapture(cameraPosition: .back, callback: { image in
+            guard let image = image else { return }
+
+            self.filterImageMonochrome.inputImage = image
+            
+            if(self.selectedFilterColor == .normal) {
+                self.imagePreview.setImage(image.cropped(to: image.extent))
+            } else {
+                self.imagePreview.setImage(self.filterImageMonochrome.outputImage?.cropped(to: image.extent))
+            }
+        })
+        
+        cameraCapture?.start()
         
     }
     
