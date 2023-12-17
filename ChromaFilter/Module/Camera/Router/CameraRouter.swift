@@ -33,6 +33,13 @@ class CameraRouter: CameraRouterProtocol {
         return router
     }
     
+    func navigateToDetail(image: UIImage) {
+        let detailRouter = DetailRouter.createDetail(with: image)
+        guard let detailview = detailRouter.entry else { return }
+        guard let viewcontroller = self.begin else { return }
+        
+        viewcontroller.navigationController?.pushViewController(detailview, animated: true)
+    }
     
 }
 
