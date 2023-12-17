@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DetailViewProtocol {
+    
+}
+
 class DetailViewController: UIViewController {
     
     let imageView: UIImageView = {
