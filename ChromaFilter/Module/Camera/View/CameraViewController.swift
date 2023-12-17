@@ -68,15 +68,23 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         return stackView
     }()
     
+    private lazy var imagePreview: MetalRenderView = {
+        var metalview = MetalRenderView(frame: view.bounds, device: MTLCreateSystemDefaultDevice())
+        return metalview
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
         
         configureConstraints()
+        setFilterButtonAction()
+        
     }
     
     private func configureConstraints() {
+        view.addSubview(imagePreview)
         view.addSubview(captureButton)
         view.addSubview(filterColorStackView)
         filterColorStackView.addArrangedSubview(redButton)
@@ -124,8 +132,8 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
     }
     
-    private func changeActiveButton(selection: FilterColor) {
-        switch(selection) {
+    private func changeActiveButton(selected: FilterColor) {
+        switch(selected) {
             case .red:
                 redButton.layer.borderWidth = 3
                 greenButton.layer.borderWidth = 0
@@ -159,7 +167,15 @@ class CameraViewController: UIViewController, CameraViewProtocol {
     }
     
     @objc private func filterButtonAction(_ button: FilterColorButton) {
-        
+        if(selectedFilterColor == button.filterColor) {
+            changeActiveButton(selected: .normal)
+            changeFilterColor(selected: .normal)
+            selectedFilterColor = .normal
+        } else {
+            changeActiveButton(selected: button.filterColor)
+            changeFilterColor(selected: button.filterColor)
+            selectedFilterColor = button.filterColor
+        }
     }
     
     @objc private func captureImage() {
