@@ -8,6 +8,7 @@
 import Foundation
 import CoreImage
 import CoreImage.CIFilterBuiltins
+import UIKit
 
 protocol CameraPresenterProtocol {
     var view: CameraViewProtocol? { get set }
@@ -20,6 +21,7 @@ protocol CameraPresenterProtocol {
     
     func changeFilterColor(selected: FilterColor)
     func cameraCaptureWithFilter()
+    func showDetailImage(image: UIImage) 
 }
 
 class CameraPresenter: CameraPresenterProtocol {
@@ -51,8 +53,6 @@ class CameraPresenter: CameraPresenterProtocol {
     func cameraCaptureWithFilter() {
         cameraCapture = CICameraCapture(cameraPosition: .back, callback: { image in
             guard let image = image else { return }
-            
-            print("called image capture")
 
             self.filterImageMonochrome.inputImage = image
 
@@ -63,5 +63,9 @@ class CameraPresenter: CameraPresenterProtocol {
             }
         })
         cameraCapture?.start()
+    }
+    
+    func showDetailImage(image: UIImage) {
+        router?.navigateToDetail(image: image)
     }
 }
