@@ -8,10 +8,14 @@
 import UIKit
 
 protocol DetailViewProtocol {
+    var presenter: DetailPresenterProtocol? { get set }
     
+    func updateImageData(image: UIImage)
 }
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, DetailViewProtocol {
+    var presenter: DetailPresenterProtocol?
+    
     
     let imageView: UIImageView = {
         let imageview = UIImageView()
@@ -37,8 +41,10 @@ class DetailViewController: UIViewController {
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
-        
         NSLayoutConstraint.activate(imageViewConstraints)
     }
-
+    
+    func updateImageData(image: UIImage) {
+        self.imageView.image = image
+    }
 }

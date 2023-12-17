@@ -20,7 +20,6 @@ class DetailPresenter: DetailPresenterProtocol {
     var view: DetailViewProtocol?
     
     func setImage(image: UIImage) {
-        
+        view?.updateImageData(image: image)
     }
-    
 }
