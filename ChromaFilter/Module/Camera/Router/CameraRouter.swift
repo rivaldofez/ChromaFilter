@@ -13,6 +13,8 @@ protocol CameraRouterProtocol {
     var begin: BeginEntry? { get set }
     
     static func start() -> CameraRouterProtocol
+    
+    func navigateToDetail(image: UIImage)
 }
 
 class CameraRouter: CameraRouterProtocol {
@@ -40,7 +42,7 @@ class CameraRouter: CameraRouterProtocol {
         
         viewcontroller.navigationController?.pushViewController(detailview, animated: true)
     }
-    
+
 }
 
 

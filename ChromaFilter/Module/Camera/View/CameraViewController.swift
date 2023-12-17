@@ -82,7 +82,6 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         configureConstraints()
         setFilterButtonAction()
         bindData()
-        presenter?.cameraCaptureWithFilter()
     }
     
     private func bindData() {
@@ -177,7 +176,17 @@ class CameraViewController: UIViewController, CameraViewProtocol {
     }
     
     @objc private func captureImage() {
+        guard let ciimage = imagePreview.getImage() else { return }
+        let context: CIContext = CIContext.init(options: nil)
+        let cgImage: CGImage = context.createCGImage(ciimage, from: ciimage.extent)!
+        
+        let image = UIImage(cgImage: cgImage)
+        presenter?.cameraCapture?.stop()
+        presenter?.showDetailImage(image: image)
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.cameraCaptureWithFilter()
+    }
 }
