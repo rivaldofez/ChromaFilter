@@ -9,6 +9,7 @@ import UIKit
 import CoreImage
 import CoreImage.CIFilterBuiltins
 import Combine
+import AVFoundation
 
 
 protocol CameraViewProtocol {
@@ -164,6 +165,28 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         }
     }
     
+    private func checkCameraPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+            
+        case .notDetermined:
+            //request permission
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                guard granted else { return }
+                DispatchQueue.main.async { [weak self] in
+                    self?.presenter?.cameraCaptureWithFilter()
+                }
+            }
+        case .restricted:
+            break
+        case .denied:
+            break
+        case .authorized:
+            presenter?.cameraCaptureWithFilter()
+        @unknown default:
+            break
+        }
+    }
+    
     @objc private func filterButtonAction(_ button: FilterColorButton) {
         if(presenter?.selectedFilterColor == button.filterColor) {
             changeActiveButton(selected: .normal)
@@ -187,6 +210,6 @@ class CameraViewController: UIViewController, CameraViewProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter?.cameraCaptureWithFilter()
+        checkCameraPermission()
     }
 }
