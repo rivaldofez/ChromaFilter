@@ -86,6 +86,19 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         return button
     }()
     
+    private let switchCameraButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
+        button.tintColor = .white
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
+        
+        
+        return button
+    }()
+    
     private var filterColorStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -140,6 +153,8 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         bottomView.addSubview(filterColorStackView)
         bottomView.addSubview(captureButton)
         
+        view.addSubview(switchCameraButton)
+        
         let captureButtonConstraints = [
             captureButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
             captureButton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -32),
@@ -179,6 +194,13 @@ class CameraViewController: UIViewController, CameraViewProtocol {
             bottomView.heightAnchor.constraint(equalToConstant: 200)
         ]
         
+        let switchCameraButtonConstraints = [
+            switchCameraButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            switchCameraButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -16),
+            switchCameraButton.heightAnchor.constraint(equalToConstant: 40),
+            switchCameraButton.widthAnchor.constraint(equalToConstant: 40)
+        ]
+        
         NSLayoutConstraint.activate(captureButtonConstraints)
         NSLayoutConstraint.activate(filterColorStackViewConstraints)
         NSLayoutConstraint.activate(redButtonConstraints)
@@ -186,6 +208,7 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         NSLayoutConstraint.activate(blueButtonConstraints)
         NSLayoutConstraint.activate(customButtonConstraints)
         NSLayoutConstraint.activate(bottomStackViewConstraints)
+        NSLayoutConstraint.activate(switchCameraButtonConstraints)
     }
     
     private func setFilterButtonAction() {
@@ -281,7 +304,7 @@ class CameraViewController: UIViewController, CameraViewProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        checkCameraPermission()
+//        checkCameraPermission()
     }
 }
 
