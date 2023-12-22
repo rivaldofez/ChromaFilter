@@ -12,4 +12,5 @@ enum FilterColor {
     case green
     case blue
     case normal
+    case custom
 }
