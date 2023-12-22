@@ -288,5 +288,7 @@ class CameraViewController: UIViewController, CameraViewProtocol {
 extension CameraViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
         
+        presenter?.changeCustomFilterColor(color: color)
+        
     }
 }
