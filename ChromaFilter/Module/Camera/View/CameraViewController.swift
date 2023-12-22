@@ -196,8 +196,11 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
     }
     
-    @objc private func selectCustomFilterColor() {
-        
+    private func selectCustomFilterColor() {
+        let colorPickerVC = UIColorPickerViewController()
+        colorPickerVC.delegate = self
+        colorPickerVC.isModalInPresentation = false
+        present(colorPickerVC, animated: true)
     }
     
     private func changeActiveButton(selected: FilterColor) {
@@ -279,5 +282,11 @@ class CameraViewController: UIViewController, CameraViewProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
 //        checkCameraPermission()
+    }
+}
+
+extension CameraViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        
     }
 }

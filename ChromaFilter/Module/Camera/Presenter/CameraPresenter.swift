@@ -20,6 +20,7 @@ protocol CameraPresenterProtocol {
     var resultCIImagePublisher: Published<CIImage?>.Publisher { get }
     
     func changeFilterColor(selected: FilterColor)
+    func changeCustomFilterColor(color: UIColor)
     func cameraCaptureWithFilter()
     func showDetailImage(image: UIImage) 
 }
@@ -35,6 +36,7 @@ class CameraPresenter: CameraPresenterProtocol {
     var cameraCapture: CICameraCapture?
     var selectedFilterColor: FilterColor = .normal
     var filterImageMonochrome = CIFilter.colorMonochrome()
+    var selectedCustomColorFilter: UIColor = .white
     
     func changeFilterColor(selected: FilterColor) {
         selectedFilterColor = selected
@@ -50,6 +52,10 @@ class CameraPresenter: CameraPresenterProtocol {
         case .custom:
             break
         }
+    }
+    
+    func changeCustomFilterColor(color: UIColor) {
+        self.selectedCustomColorFilter = color
     }
     
     func cameraCaptureWithFilter() {
