@@ -217,9 +217,18 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         blueButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
         customButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
         captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
+        switchCameraButton.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(selectCustomFilterColor))
         customButton.addGestureRecognizer(longPress)
+    }
+    
+    @objc private func switchCamera() {
+        if(presenter?.cameraPosition == .front) {
+            presenter?.changeCameraPosition(cameraPosition: .back)
+        } else {
+            presenter?.changeCameraPosition(cameraPosition: .front)
+        }
     }
     
     @objc private func selectCustomFilterColor() {
@@ -300,11 +309,10 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         let image = UIImage(cgImage: cgImage)
         presenter?.cameraCapture?.stop()
         presenter?.showDetailImage(image: image)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        checkCameraPermission()
+        checkCameraPermission()
     }
 }
 
