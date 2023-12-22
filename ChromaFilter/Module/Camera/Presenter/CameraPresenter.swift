@@ -50,12 +50,13 @@ class CameraPresenter: CameraPresenterProtocol {
         case .normal:
             break
         case .custom:
-            break
+            self.filterImageMonochrome.color = CIColor(color: selectedCustomColorFilter)
         }
     }
     
     func changeCustomFilterColor(color: UIColor) {
         self.selectedCustomColorFilter = color
+        self.changeFilterColor(selected: selectedFilterColor)
     }
     
     func cameraCaptureWithFilter() {
