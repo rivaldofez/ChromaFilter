@@ -196,6 +196,10 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
     }
     
+    @objc private func selectCustomFilterColor() {
+        
+    }
+    
     private func changeActiveButton(selected: FilterColor) {
         switch(selected) {
             case .red:
@@ -256,6 +260,9 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         } else {
             changeActiveButton(selected: button.filterColor)
             presenter?.changeFilterColor(selected: button.filterColor)
+            if button.filterColor == .custom {
+                selectCustomFilterColor()
+            }
         }
     }
     
