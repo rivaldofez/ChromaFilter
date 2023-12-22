@@ -98,7 +98,7 @@ class CameraViewController: UIViewController, CameraViewProtocol {
     private var bottomView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray.withAlphaComponent(0.3)
+        view.backgroundColor = .black.withAlphaComponent(0.5)
         
         return view
     }()
@@ -194,9 +194,12 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         blueButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
         customButton.addTarget(self, action: #selector(filterButtonAction), for: .touchUpInside)
         captureButton.addTarget(self, action: #selector(captureImage), for: .touchUpInside)
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(selectCustomFilterColor))
+        customButton.addGestureRecognizer(longPress)
     }
     
-    private func selectCustomFilterColor() {
+    @objc private func selectCustomFilterColor() {
         let colorPickerVC = UIColorPickerViewController()
         colorPickerVC.delegate = self
         colorPickerVC.isModalInPresentation = false
@@ -263,9 +266,6 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         } else {
             changeActiveButton(selected: button.filterColor)
             presenter?.changeFilterColor(selected: button.filterColor)
-            if button.filterColor == .custom {
-                selectCustomFilterColor()
-            }
         }
     }
     
@@ -281,7 +281,7 @@ class CameraViewController: UIViewController, CameraViewProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        checkCameraPermission()
+        checkCameraPermission()
     }
 }
 
@@ -289,6 +289,5 @@ extension CameraViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
         
         presenter?.changeCustomFilterColor(color: color)
-        
     }
 }
