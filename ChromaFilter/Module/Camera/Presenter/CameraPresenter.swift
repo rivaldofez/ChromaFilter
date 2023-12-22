@@ -47,6 +47,8 @@ class CameraPresenter: CameraPresenterProtocol {
             self.filterImageMonochrome.color = CIColor(red: 0.5, green: 0.5, blue: 1, alpha: 1)
         case .normal:
             break
+        case .custom:
+            break
         }
     }
     

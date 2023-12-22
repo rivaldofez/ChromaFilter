@@ -56,7 +56,6 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         button.filterColor = .custom
         button.setImage(UIImage(systemName: "camera.filters"), for: .normal)
         button.tintColor = .white
-        button.layer.borderColor = UIColor.white.cgColor
         button.imageView?.contentMode = .scaleToFill
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
@@ -69,11 +68,20 @@ class CameraViewController: UIViewController, CameraViewProtocol {
     }()
     
     private let captureButton: UIButton = {
-        let button = UIButton()
+        let button = FilterColorButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.filterColor = .custom
+        button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+        button.imageView?.layer.borderColor = UIColor.black.cgColor
+        button.imageView?.layer.borderWidth = 1
+        button.imageView?.clipsToBounds = true
+        button.imageView?.layer.cornerRadius = 30
+        button.tintColor = .white
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
         button.layer.cornerRadius = 30
-        button.layer.backgroundColor = UIColor.white.cgColor
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 3
         
         return button
     }()
