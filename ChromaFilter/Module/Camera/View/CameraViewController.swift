@@ -51,7 +51,22 @@ class CameraViewController: UIViewController, CameraViewProtocol {
         return button
     }()
     
-   
+    private let customButton: FilterColorButton = {
+        let button = FilterColorButton()
+        button.filterColor = .custom
+        button.setImage(UIImage(systemName: "camera.filters"), for: .normal)
+        button.tintColor = .white
+        button.layer.borderColor = UIColor.white.cgColor
+        button.imageView?.contentMode = .scaleToFill
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
+        button.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        button.layer.cornerRadius = 30
+        button.layer.backgroundColor = UIColor.darkGray.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
+        
+        return button
+    }()
     
     private let captureButton: UIButton = {
         let button = UIButton()
